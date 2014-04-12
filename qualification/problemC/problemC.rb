@@ -12,8 +12,11 @@ until game_number > total_games_to_play
   @xAxis = game_data[1].to_i
   @mines = game_data[2].to_i
 
-  # is there a combination of the input that will let one click win?
-  file.puts "Case ##{game_number}: #{"Impossible"}"
+  # check if combination of the input that will let one click win?
+  # if yes
+    file.puts # the game board
+  # if no
+    file.puts "Case ##{game_number}: #{"Impossible"}"
 
   game_number += 1
 end
