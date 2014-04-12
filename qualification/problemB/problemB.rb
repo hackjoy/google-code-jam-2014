@@ -21,17 +21,24 @@ until game_number > total_games_to_play
     time_with_new_farm < time_without_new_farm
   end
 
+  def buy_cookie_farm
+    @current_cookies -= @cookie_farm_cost
+    @production_level += @cookie_farm_volume
+  end
+
+  def generate_target_cookies
+    @total_time += (@target_cookies - @current_cookies) / @production_level
+    @current_cookies = @target_cookies
+  end
+
+  def generate_cookies_for_new_farm
+    @total_time += (@cookie_farm_cost - @current_cookies) / @production_level
+    @current_cookies += @cookie_farm_cost
+  end
+
   until @current_cookies >= @target_cookies
-    if @current_cookies < @cookie_farm_cost
-      @total_time += (@cookie_farm_cost - @current_cookies) / @production_level
-      @current_cookies += @cookie_farm_cost
-      if better_to_buy?
-        @current_cookies -= @cookie_farm_cost
-        @production_level += @cookie_farm_volume
-      else
-        @total_time += (@target_cookies - @current_cookies) / @production_level
-        @current_cookies = @target_cookies
-      end
+    if @current_cookies < @cookie_farm_cost ; generate_cookies_for_new_farm
+      better_to_buy? ? buy_cookie_farm : generate_target_cookies
     end
   end
 
