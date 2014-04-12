@@ -1,4 +1,4 @@
-a = File.open('./input-test.txt')
+a = File.open('./input-large.txt')
 input = a.readlines
 
 total_games_to_play = input[0].to_i
